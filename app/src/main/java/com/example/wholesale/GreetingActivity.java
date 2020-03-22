@@ -9,7 +9,7 @@ import android.os.Handler;
 
 public class GreetingActivity extends AppCompatActivity {
 
-    private final int SPLASH_DISPLAY_LENGHT = 6000;
+    private final int SPLASH_DISPLAY_LENGHT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class GreetingActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(GreetingActivity.this, MainActivity.class);
+                Intent mainIntent = new Intent(GreetingActivity.this, LoginActivity.class);
                 GreetingActivity.this.startActivity(mainIntent);
                 GreetingActivity.this.finish();
             }
