@@ -21,8 +21,8 @@ public class LoginActivity extends AppCompatActivity {
         private EditText edittext_password;
         private Button button_signin;
         private Button button_signup;
-        private CheckBox checkbox_signin;
-        private CheckBox checkbox_signup;
+        private CheckBox checkbox_autologin;
+        private CheckBox checkbox_remember;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
             edittext_password = findViewById(R.id.login_edittext_password);
             button_signin = findViewById(R.id.login_button_signin);
             button_signup = findViewById(R.id.login_button_signup);
-            checkbox_signin = findViewById(R.id.checkbox_signin);
-            checkbox_signup = findViewById(R.id.checkbox_signup);
+            checkbox_autologin = findViewById(R.id.checkbox_autologin);
+            checkbox_remember = findViewById(R.id.checkbox_remember);
 
             // check if the table exist, or create the table
             db = openOrCreateDatabase("WholeSaleDB",MODE_PRIVATE,null);
@@ -47,12 +47,46 @@ public class LoginActivity extends AppCompatActivity {
             }
             initCursor.close();
 
-            // login
+            // last time log in
+            String username = "";
+            Boolean isSavename = false;
+            Boolean isAutologin = false;
+            db = openOrCreateDatabase("WholeSaleDB",MODE_PRIVATE,null);
+            Cursor loginCursor = db.rawQuery( "SELECT * FROM lastlogin ;",
+                    null);
+            System.out.println("count:" + loginCursor.getCount());
+            if (loginCursor.getCount() != 1) {
+                System.out.println("initialize lastlogin table");
+            }else{
+                if(loginCursor.moveToNext()){
+                    username = loginCursor.getString(0);
+                    isSavename = loginCursor.getInt(1) == 1;
+                    isAutologin = loginCursor.getInt(2) == 1;
+                    System.out.println("isSavename:" + isSavename);
+                    System.out.println("isAutologin:" + isAutologin);
+                    if(isAutologin){
+                        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        mainIntent.putExtra("username", username);
+                        LoginActivity.this.startActivity(mainIntent);
+                        LoginActivity.this.finish();
+                    }else if(isSavename){
+                        edittext_username.setText(username);
+                        checkbox_remember.setChecked(true);
+                    }
+                }
+            }
+            loginCursor.close();
+
+            // press signin button
+//            final Boolean finalIssavename = isSavename;
+//            final Boolean finalIsAutologin = isAutologin;
             button_signin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String inputName = edittext_username.getText().toString();
                     String inputPassword = edittext_password.getText().toString();
+                    Boolean finalIssavename = checkbox_remember.isChecked();
+                    Boolean finalIsAutologin = checkbox_autologin.isChecked();
                     if(inputName.trim().isEmpty()){
                         Toast.makeText(LoginActivity.this, "Invalid Username", Toast.LENGTH_SHORT).show();
                         edittext_username.setBackgroundColor(Color.argb(60, 255, 0, 0));
@@ -80,13 +114,31 @@ public class LoginActivity extends AppCompatActivity {
                             }else{
                                 // match password
                                 // updateUserInfo(groundtruth);
+
+                                // update last time login
+                                String droplastloginStr = "DROP TABLE IF EXISTS lastlogin;";
+                                db.execSQL(droplastloginStr);
+
+                                String lastLoginStr = "CREATE TABLE lastlogin (" +
+                                        "username TEXT, savename INTEGRE, autologin INTEGER, " +
+                                        "_id INTEGER PRIMARY KEY AUTOINCREMENT" + ");";
+                                db.execSQL(lastLoginStr);
+
+                                String insertStr = "INSERT INTO lastlogin VALUES ('" +
+                                        inputName + "', " +
+                                        ( finalIssavename ? 1 : 0 ) + ", " +
+                                        ( finalIsAutologin ? 1 : 0 ) + ", " +
+                                        "NULL );";
+                                db.execSQL(insertStr);
+
+                                // start main activity
                                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                mainIntent.putExtra("username", groundtruth);
                                 LoginActivity.this.startActivity(mainIntent);
                                 LoginActivity.this.finish();
                             }
                         }
                     }
-
                 }
             });
 
@@ -104,20 +156,33 @@ public class LoginActivity extends AppCompatActivity {
         //String dropUserStr = "DROP TABLE IF EXISTS user;";
         //String dropLoginStr = "DROP TABLE IF EXISTS login;";
         db.execSQL(dropLoginStr);
+        String droplastloginStr = "DROP TABLE IF EXISTS lastlogin;";
+        db.execSQL(droplastloginStr);
         System.out.println("Delete login table!");
     }
 
     /* set up the database*/
     private void initDB() {
+        // user login db
         String loginStr = "CREATE TABLE login (" +
-                "username TEXT, password TEXT, savename INTEGRE, autologin INTEGER, times INTEGER, " +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT" + ");";
+                "username TEXT PRIMARY KEY, password TEXT, times INTEGER" + ");";
         db.execSQL(loginStr);
         String insertStr = "INSERT INTO login VALUES "
-                + "('forethought','Yitaipu8585#', 1, 1, 0, NULL),"
-                + "('weepy','0404yyh',0, 0, 0, NULL)"
+                + "('forethought','Yitaipu8585#', 0),"
+                + "('weepy','0404yyh', 0)"
                 + ";";
         db.execSQL(insertStr);
         System.out.println("Create login table!");
+
+        // last time login
+        String lastLoginStr = "CREATE TABLE lastlogin (" +
+                "username TEXT, savename INTEGRE, autologin INTEGER, " +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT" + ");";
+        db.execSQL(lastLoginStr);
+//        insertStr = "INSERT INTO login VALUES "
+//                + "('forethought',1, 1, NULL)"
+//                + ";";
+//        db.execSQL(insertStr);
+        System.out.println("Create last login table!");
     }
 }

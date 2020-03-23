@@ -60,13 +60,13 @@
             <CheckBox
                 android:layout_width="20mm"
                 android:layout_height="10mm"
-                android:id="@+id/checkbox_signin"
+                android:id="@+id/checkbox_autologin"
                 android:text="Auto Login"
                 android:textColor="@android:color/white"/>
             <CheckBox
                 android:layout_width="20mm"
                 android:layout_height="10mm"
-                android:id="@+id/checkbox_signup"
+                android:id="@+id/checkbox_remember"
                 android:text="Remember me"
                 android:textColor="@android:color/white"/>
         </LinearLayout>
