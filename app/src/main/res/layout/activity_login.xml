@@ -85,30 +85,37 @@
                     android:layout_width="15mm"
                     android:layout_height="10mm"
                     android:layout_marginLeft="5mm"
-                    android:background="@android:color/darker_gray"
+                    android:background="@drawable/login_button_color"
                     android:text="Sign In"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
                 <Button
                     android:id="@+id/login_button_signup"
                     android:layout_width="15mm"
                     android:layout_height="10mm"
                     android:layout_marginLeft="5mm"
-                    android:background="@android:color/darker_gray"
+                    android:background="@drawable/login_button_color"
                     android:text="Sign up"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
             </LinearLayout>
             <TextView
                 android:layout_width="30mm"
                 android:layout_height="10mm"
+                android:gravity="center_vertical"
                 android:layout_marginLeft="5mm"
                 android:text="Forget your password?"
                 android:id="@+id/login_textview_forgetpw"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"/>
+                android:textColor="@drawable/login_textview_color"
+                android:textSize="13sp"
+                android:clickable="true"
+                android:focusable="true"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

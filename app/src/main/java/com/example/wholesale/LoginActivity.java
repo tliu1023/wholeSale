@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         private Button button_signup;
         private CheckBox checkbox_autologin;
         private CheckBox checkbox_remember;
+        private TextView textview_forgetpw;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
             button_signup = findViewById(R.id.login_button_signup);
             checkbox_autologin = findViewById(R.id.checkbox_autologin);
             checkbox_remember = findViewById(R.id.checkbox_remember);
+            textview_forgetpw = findViewById(R.id.login_textview_forgetpw);
 
             // check if the table exist, or create the table
             db = openOrCreateDatabase("WholeSaleDB",MODE_PRIVATE,null);
@@ -147,6 +151,15 @@ public class LoginActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     clearDB();
                     initDB();
+                }
+            });
+
+            textview_forgetpw.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent resetPWIntent = new Intent(LoginActivity.this, resetPWActivity.class);
+                    LoginActivity.this.startActivity(resetPWIntent);
+                    LoginActivity.this.finish();
                 }
             });
         }
