@@ -11,11 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".forgetPwActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        </activity>
+        <activity
             android:name=".resetPWActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".GreetingActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">

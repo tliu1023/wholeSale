@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".forgetPwActivity"
+    android:background="@drawable/greetingimage">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="25mm"
+        android:layout_marginLeft="10mm">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="5mm"
+                android:text="Username: "/>
+            <EditText
+                android:id="@+id/forgetPw_edittext_username"
+                android:layout_width="20mm"
+                android:layout_height="5mm"
+                android:focusable="auto"/>
+            <TextView
+                android:id="@+id/forgetPw_textview_nonexist"
+                android:layout_width="wrap_content"
+                android:layout_height="5mm"
+                android:text="User doesn't exist ! "
+                android:textColor="@android:color/holo_red_light"/>
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/forgetPw_button_submit"
+            android:text="submit"/>
+    </LinearLayout>
+</LinearLayout>
