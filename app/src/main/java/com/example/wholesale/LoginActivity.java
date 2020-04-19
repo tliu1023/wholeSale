@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 // start main activity
                                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                                mainIntent.putExtra("username", groundtruth);
+                                mainIntent.putExtra("username", inputName);
                                 LoginActivity.this.startActivity(mainIntent);
                                 LoginActivity.this.finish();
                             }
