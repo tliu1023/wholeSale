@@ -1,2 +1,2 @@
 # wholeSale
-An Android app for online shopping
+An Android shopping application
