@@ -9,7 +9,8 @@
         android:id="@+id/button_main_home"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:focusable="true">
         <!-- android:clickable="false" 是为了防止ImageButton截取了触摸事件 ，这里事件要给它的上一级linearlayout-->
         <ImageButton
             android:id="@+id/image_main_home"
@@ -18,10 +19,12 @@
             android:background="#00000000"
             android:clickable="false"
             android:src="@drawable/main_home"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:alpha="1.0"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:text="Home"
             android:textColor="#000000"/>
     </LinearLayout>
@@ -31,7 +34,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:focusable="true">
         <ImageButton
             android:id="@+id/image_main_items"
             android:layout_width="wrap_content"
@@ -39,10 +43,12 @@
             android:background="#00000000"
             android:clickable="false"
             android:src="@drawable/main_items"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:alpha="0.3"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:text="Items"
             android:textColor="#000000"/>
     </LinearLayout>
@@ -52,7 +58,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:focusable="true">
         <ImageButton
             android:id="@+id/image_main_cart"
             android:layout_width="wrap_content"
@@ -60,10 +67,12 @@
             android:background="#00000000"
             android:clickable="false"
             android:src="@drawable/main_cart"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:alpha="0.3"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:text="Cart"
             android:textColor="#000000"/>
     </LinearLayout>
@@ -73,7 +82,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:focusable="true">
         <ImageButton
             android:id="@+id/image_main_me"
             android:layout_width="wrap_content"
@@ -81,10 +91,12 @@
             android:background="#00000000"
             android:clickable="false"
             android:src="@drawable/main_me"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:alpha="0.3"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:text="Me"
             android:textColor="#000000"/>
     </LinearLayout>
