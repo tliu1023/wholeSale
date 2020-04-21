@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mainViewPager;
     private ArrayList<View> mainViewList;
     private MainPagerAdapter mainViewAdapter;
+
+    private SearchBarEditText mainSearchBar;
 
     final ArrayList<LinearLayout> buttonList = new ArrayList<>();
     final ArrayList<ImageButton> imagebuttonList = new ArrayList<>();
@@ -37,9 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
         //TextView textview_greeting = findViewById(R.id.textview_greeting);
         //textview_greeting.setText("Hello "+ userName + "!");
-
+        initSearchBar();
         initButton();
         initViewPage();
+    }
+
+    private void initSearchBar() {
+        mainSearchBar = findViewById(R.id.searchbar_edittext);
     }
 
     private void initButton() {
@@ -104,6 +115,43 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_UP:
+                View view = getCurrentFocus();
+                if (isHideInput(view, ev)) {
+                    HideSoftInput(view.getWindowToken());
+                    view.clearFocus();
+                }
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    // return need to be hide or not
+    private boolean isHideInput(View v, MotionEvent ev) {
+        if (v != null && (v instanceof SearchBarEditText)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+            if (ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // hide the keyboard
+    private void HideSoftInput(IBinder token) {
+        if (token != null) {
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
 }

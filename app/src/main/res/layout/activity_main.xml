@@ -8,6 +8,14 @@
     android:orientation="vertical"
     android:background="#E1FFFF">
 
+    <com.example.wholesale.SearchBarEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/text_border"
+        android:singleLine="true">
+    </com.example.wholesale.SearchBarEditText>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager_main"
