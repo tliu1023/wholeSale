@@ -181,8 +181,8 @@ public class LoginActivity extends AppCompatActivity {
                 "username TEXT PRIMARY KEY, password TEXT, times INTEGER" + ");";
         db.execSQL(loginStr);
         String insertStr = "INSERT INTO login VALUES "
-                + "('forethought','Yitaipu8585#', 0),"
-                + "('weepy','0404yyh', 0)"
+                + "('user1','whatever', 0),"
+                + "('user2','whatever', 0)"
                 + ";";
         db.execSQL(insertStr);
         System.out.println("Create login table!");
