@@ -1,7 +1,9 @@
 package com.example.wholesale;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.viewpager.widget.PagerAdapter;
 
@@ -30,8 +32,18 @@ public class MainPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(viewLists.get(position));
-        return viewLists.get(position);
+        if(position == 0){
+            View view;
+            LayoutInflater l = LayoutInflater.from(container.getContext());
+            view = l.inflate(R.layout.layout_main_home, null);
+            TextView tvRecord = view.findViewById(R.id.textview_home);
+            tvRecord.setTag(R.id.tag_textview_home);
+            container.addView(view);
+            return view;
+        }else{
+            container.addView(viewLists.get(position));
+            return viewLists.get(position);
+        }
     }
 
     @Override

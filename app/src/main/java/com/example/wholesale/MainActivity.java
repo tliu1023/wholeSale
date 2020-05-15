@@ -2,6 +2,8 @@ package com.example.wholesale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,9 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     private SearchBarEditText mainSearchBar;
 
+    private RecyclerView mainRecycleView;
+    private RecyclerView.Adapter mainRecycleViewAdapter;
+    private RecyclerView.LayoutManager mainRecycleViewLayoutManager;
+
     final ArrayList<LinearLayout> buttonList = new ArrayList<>();
     final ArrayList<ImageButton> imagebuttonList = new ArrayList<>();
 
+    ArrayList<String> itemCategoryList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         initSearchBar();
         initButton();
         initViewPage();
+        initRecycleView(this);
     }
 
     private void initSearchBar() {
@@ -86,12 +94,20 @@ public class MainActivity extends AppCompatActivity {
         mainViewPager = findViewById(R.id.viewpager_main);
 
         mainViewList = new ArrayList<>();
+
         LayoutInflater li = getLayoutInflater();
-        mainViewList.add(li.inflate(R.layout.layout_main_home,null,false));
-        mainViewList.add(li.inflate(R.layout.layout_main_items,null,false));
-        mainViewList.add(li.inflate(R.layout.layout_main_cart,null,false));
-        mainViewList.add(li.inflate(R.layout.layout_main_me,null,false));
+        View L1 = li.inflate(R.layout.layout_main_home,null,false);
+        View L2 = li.inflate(R.layout.layout_main_items,null,false);
+        View L3 = li.inflate(R.layout.layout_main_cart,null,false);
+        View L4 = li.inflate(R.layout.layout_main_me,null,false);
+        L1.setTag(R.id.tag_textview_home);
+        mainViewList.add(L1);
+        mainViewList.add(L2);
+        mainViewList.add(L3);
+        mainViewList.add(L4);
+
         mainViewAdapter = new MainPagerAdapter(mainViewList);
+        mainViewAdapter.notifyDataSetChanged();
         mainViewPager.setAdapter(mainViewAdapter);
 
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -115,6 +131,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void initRecycleView(MainActivity mainActivity){
+        for(int i = 0; i < 50; i++){
+            itemCategoryList.add( "ITEM" + i );
+        }
+        System.out.println(itemCategoryList);
+        mainRecycleView = findViewById(R.id.recycleview_main);
+        mainRecycleView.setHasFixedSize(true);
+
+        mainRecycleViewLayoutManager = new LinearLayoutManager(this);
+        mainRecycleView.setLayoutManager(mainRecycleViewLayoutManager);
+
+        mainRecycleViewAdapter = new MainRecycleViewAdapter(mainActivity, itemCategoryList);
+        mainRecycleView.setAdapter(mainRecycleViewAdapter);
     }
 
     @Override
